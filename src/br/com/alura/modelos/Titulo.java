@@ -1,5 +1,6 @@
 package br.com.alura.modelos;
 
+import br.com.alura.exception.ErroDeFormatacaoDeAnoException;
 import com.google.gson.annotations.SerializedName;
 
 public class Titulo implements Comparable<Titulo> {
@@ -20,6 +21,10 @@ public class Titulo implements Comparable<Titulo> {
 
     public Titulo(TituloOMDB meuTituloOMDB) {
         this.nome = meuTituloOMDB.title();
+
+        if(meuTituloOMDB.year().length() > 4){ //Criação da mensagem de erro dentro do construtor. Utilize throw new
+              throw new ErroDeFormatacaoDeAnoException("O tamanho do ano tem mais de 4 caracteres");
+        }
         this.anoDeLancamento = Integer.valueOf(meuTituloOMDB.year());
         this.duracaoEmMinutos = Integer.valueOf(meuTituloOMDB.runtime().substring(0,2));
     }
